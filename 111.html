@@ -12,7 +12,6 @@
             box-sizing: border-box;
         }
 
-        /* 页面平滑切换基础样式 */
         .page {
             position: fixed;
             top: 0;
@@ -35,7 +34,6 @@
             pointer-events: all;
         }
 
-        /* 容器样式 + 加载弹入动画 */
         .container {
             background-color: rgba(255, 255, 255, 0.95);
             width: 90%;
@@ -57,7 +55,6 @@
             }
         }
 
-        /* 表单元素统一样式 */
         .form-title {
             color: #333333;
             font-size: 22px;
@@ -102,7 +99,6 @@
             min-height: 100px;
         }
 
-        /* 提交按钮样式 */
         .submit-btn {
             display: block;
             width: 100%;
@@ -121,12 +117,11 @@
         .submit-btn:hover {
             background-color: #5CDBD3;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0, 0.1);
         }
 
-        /* 成功提示卡片样式 */
         .success-message {
-            display: none; /* 默认隐藏 */
+            display: none;
             padding: 20px 0;
         }
 
@@ -143,7 +138,6 @@
             line-height: 1.6;
         }
 
-        /* 返回按钮样式 (复用提交按钮样式，稍微调整颜色) */
         .back-btn {
             display: inline-block;
             width: 80%;
@@ -167,16 +161,13 @@
 <body>
     <div class="page active" id="formPage">
         <div class="container">
-            <!-- 1. 表单区域 -->
             <div id="formContainer">
                 <h2 class="form-title">留下你的评论</h2>
-                
                 <form id="commentForm">
                     <div class="form-group">
                         <label for="nickname">B站昵称</label>
                         <input type="text" id="nickname" name="nickname" placeholder="怎么称呼你？" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="gender">性别</label>
                         <select id="gender" name="gender">
@@ -186,23 +177,19 @@
                             <option value="其他">其他</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label for="happy">最近有什么开心的事吗？</label>
                         <textarea id="happy" name="happy" placeholder="分享一件让你嘴角上扬的小事吧~"></textarea>
                     </div>
-                    
                     <div class="form-group">
                         <label for="comment">评论内容</label>
                         <textarea id="comment" name="comment" placeholder="写下你想评论的留言...说不定在读评论的时候会读到哦〜" required></textarea>
                     </div>
-                    
                     <button type="submit" class="submit-btn">提交评论</button>
                     <button type="reset">重置</button>
                 </form>
             </div>
 
-            <!-- 2. 提交成功后的提示区域 -->
             <div class="success-message" id="successMessage">
                 <h2>🎉 提交成功！</h2>
                 <p>感谢你对绿钻的支持！<br>你的评论我会认真的观看~</p>
@@ -218,13 +205,9 @@ const successMessage = document.getElementById('successMessage');
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
-    // 切换为成功提示页面
-    formContainer.style.display = 'none';
-    successMessage.style.display = 'block';
-    // 新标签页打开金山表单，用户前往填写，数据自动收录
-    window.open('https://f.wps.cn/g/ZZec8cmx/', '_blank');
+    // 直接跳转至金山表单填写页面
+    window.location.href = "https://f.wps.cn/g/ZZec8cmx/";
 });
 </script>
-
 </body>
 </html>
