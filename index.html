@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绿钻的主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        /* 页面平滑切换基础样式 */
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffffff 0%, #fff9f0 100%);
+        }
+        .page.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+        /* 容器样式 + 加载弹入动画 */
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            width: 90%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: scale(0.8);
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.2s;
+        }
+        @keyframes popIn {
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #FFB866;
+        }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        h1 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: block;
+            width: 80%;
+            margin: 15px auto;
+            padding: 15px 0;
+            background-color: #87E8DE;
+            color: #333333;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background-color: #5CDBD3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="page active" id="homePage">
+        <div class="container">
+            <div class="logo">
+                <img src="CROP_20251212_093139.jpeg" alt="绿钻的头像" onerror="this.onerror=null;this.src='https://via.placeholder.com/120'">
+            </div>
+            <h1>你好，我叫绿钻</h1>
+            <!-- 带平滑跳转的按钮，class 加 jump -->
+            <a href="page2.html" class="btn jump">兽设介绍</a>
+            <a href="page3.html" class="btn jump">版权信息</a>
+            <a href="page4.html" class="btn jump">资源下载</a>
+            <!-- 修改关注我们按钮链接为Bilibili空间 -->
+            <a href="https://space.bilibili.com/3546595117238741?spm_id_from=333.337.0.0" class="btn" target="_blank">关注我们</a>
+            <!-- 修改联系我们按钮链接为邮箱 -->
+            <a href="mailto:luizuan@163.com" class="btn">联系我们</a>
+            <a href="#" class="btn">评论留言</a>
+        </div>
+    </div>
+
+    <script>
+        // 平滑跳转逻辑
+        document.querySelectorAll('.jump').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault(); // 阻止默认跳转
+                const targetUrl = this.href;
+                // 当前页面淡出
+                document.getElementById('homePage').classList.remove('active');
+                // 延迟和过渡时间一致，再跳转
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
