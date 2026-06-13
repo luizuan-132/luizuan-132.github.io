@@ -165,8 +165,8 @@
     <div class="page active" id="formPage">
         <div class="container">
             <div id="formContainer">
-                <h2 class="form-title">留下你的评论</h2>
-                <!-- 表单提交至Tally，目标指向隐藏iframe -->
+                <h2 class="form-title">评论留言表</h2>
+                <!-- 这里的name属性，必须和你在Tally后台设置的Field name完全一致 -->
                 <form 
                     id="commentForm" 
                     action="https://tally.so/r/q4NO1Y" 
@@ -174,14 +174,14 @@
                     target="tallyFrame">
                     
                     <div class="form-group">
-                        <label for="nickname">B站昵称</label>
+                        <label for="nickname">B站名称</label>
                         <input type="text" id="nickname" name="nickname" placeholder="怎么称呼你？" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="gender">性别</label>
                         <select id="gender" name="gender">
-                            <option value="保密">保密/不透露</option>
+                            <option value="保密/不透露">保密/不透露</option>
                             <option value="男">男</option>
                             <option value="女">女</option>
                             <option value="其他">其他</option>
@@ -195,7 +195,7 @@
                     
                     <div class="form-group">
                         <label for="comment">评论内容</label>
-                        <textarea id="comment" name="comment" placeholder="写下你想评论的留言...说不定在读评论的时候会读到哦〜" required></textarea>
+                        <textarea id="comment" name="comment" placeholder="写下你想评论的留言...说不定在读评论的时候会读到哦~" required></textarea>
                     </div>
                     
                     <button type="submit" class="submit-btn">提交评论</button>
@@ -217,7 +217,7 @@ const formContainer = document.getElementById('formContainer');
 const successMessage = document.getElementById('successMessage');
 
 form.addEventListener('submit', function(){
-    // 提交后切换为成功提示页，页面无刷新、无跳转
+    // 提交后立刻切换为成功提示页，页面无刷新、无跳转
     formContainer.style.display = 'none';
     successMessage.style.display = 'block';
 });
