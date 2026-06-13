@@ -159,12 +159,20 @@
     </style>
 </head>
 <body>
+    <!-- 隐藏iframe：实现无痕提交，页面不跳转 -->
+    <iframe name="tallyFrame" style="display: none;"></iframe>
+
     <div class="page active" id="formPage">
         <div class="container">
             <div id="formContainer">
                 <h2 class="form-title">留下你的评论</h2>
-                <!-- 保留你原版表单，不修改界面 -->
-                <form id="commentForm">
+                <!-- 表单提交至Tally，目标指向隐藏iframe -->
+                <form 
+                    id="commentForm" 
+                    action="https://tally.so/r/q4NO1Y" 
+                    method="POST" 
+                    target="tallyFrame">
+                    
                     <div class="form-group">
                         <label for="nickname">B站昵称</label>
                         <input type="text" id="nickname" name="nickname" placeholder="怎么称呼你？" required>
@@ -208,29 +216,8 @@ const form = document.getElementById('commentForm');
 const formContainer = document.getElementById('formContainer');
 const successMessage = document.getElementById('successMessage');
 
-// 你的 Tally 表单提交接口（固定格式，替换后缀即可）
-const tallyUrl = "https://tally.so/r/q4NO1Y";
-
-form.addEventListener('submit', async function(e) {
-    // 阻止原生提交，保持页面不跳转
-    e.preventDefault();
-
-    // 收集表单数据
-    const formData = new FormData(form);
-
-    try {
-        // 数据提交到 Tally，后台可查看
-        await fetch(tallyUrl, {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors' // 跨域兼容，保证提交成功
-        });
-    } catch (err) {
-        // 即使前端跨域提示，Tally 依然能正常收到数据
-        console.log('提交完成');
-    }
-
-    // 切换到成功提示页
+form.addEventListener('submit', function(){
+    // 提交后切换为成功提示页，页面无刷新、无跳转
     formContainer.style.display = 'none';
     successMessage.style.display = 'block';
 });
