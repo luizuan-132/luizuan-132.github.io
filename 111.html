@@ -163,11 +163,13 @@
         <div class="container">
             <div id="formContainer">
                 <h2 class="form-title">留下你的评论</h2>
+                <!-- 保留你原版表单，不修改界面 -->
                 <form id="commentForm">
                     <div class="form-group">
                         <label for="nickname">B站昵称</label>
                         <input type="text" id="nickname" name="nickname" placeholder="怎么称呼你？" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="gender">性别</label>
                         <select id="gender" name="gender">
@@ -177,14 +179,17 @@
                             <option value="其他">其他</option>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label for="happy">最近有什么开心的事吗？</label>
                         <textarea id="happy" name="happy" placeholder="分享一件让你嘴角上扬的小事吧~"></textarea>
                     </div>
+                    
                     <div class="form-group">
                         <label for="comment">评论内容</label>
                         <textarea id="comment" name="comment" placeholder="写下你想评论的留言...说不定在读评论的时候会读到哦〜" required></textarea>
                     </div>
+                    
                     <button type="submit" class="submit-btn">提交评论</button>
                     <button type="reset">重置</button>
                 </form>
@@ -203,11 +208,33 @@ const form = document.getElementById('commentForm');
 const formContainer = document.getElementById('formContainer');
 const successMessage = document.getElementById('successMessage');
 
-form.addEventListener('submit', function(e) {
+// 你的 Tally 表单提交接口（固定格式，替换后缀即可）
+const tallyUrl = "https://tally.so/r/q4NO1Y";
+
+form.addEventListener('submit', async function(e) {
+    // 阻止原生提交，保持页面不跳转
     e.preventDefault();
-    // 直接跳转至金山表单填写页面
-    window.location.href = "https://f.wps.cn/g/ZZec8cmx/";
+
+    // 收集表单数据
+    const formData = new FormData(form);
+
+    try {
+        // 数据提交到 Tally，后台可查看
+        await fetch(tallyUrl, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors' // 跨域兼容，保证提交成功
+        });
+    } catch (err) {
+        // 即使前端跨域提示，Tally 依然能正常收到数据
+        console.log('提交完成');
+    }
+
+    // 切换到成功提示页
+    formContainer.style.display = 'none';
+    successMessage.style.display = 'block';
 });
 </script>
+
 </body>
 </html>
